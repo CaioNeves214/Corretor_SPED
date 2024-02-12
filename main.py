@@ -27,7 +27,6 @@ with open("C:/Users/acer003/Documents/Testes de Python/PROJETOS/PROJETO - Valida
                 lista_num.pop()
                 lista_num.pop()
                 lista_num.insert(3, 0)
-                print(lista_num)
             
             
             # linha[7] = ''.join(insc_estadual)
