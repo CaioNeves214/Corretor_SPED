@@ -4,7 +4,7 @@ from tkinter import filedialog as fd
 
 # DEFINIR VARIAVEIS E ABRIR ARQUIVO FISCAL SELECIONADO
 # caminho = fd.askopenfilename()
-with open("C:/Users/acer003/Documents/Testes de Python/PROJETOS/PROJETO - Valida SPED Fiscal/SPED FISCAL BARRACA AMARELA JANEIRO.txt", 'r') as sped:
+with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMARELA JANEIRO.txt', 'r') as sped:
     os.system('cls')
     nova_linha = ''
     lista = []
@@ -17,18 +17,23 @@ with open("C:/Users/acer003/Documents/Testes de Python/PROJETOS/PROJETO - Valida
             insc_estadual = linha[7].split()           
             for cont in insc_estadual:
                 lista_num = list(cont)
+                
+            if len(lista_num) <= 10:
+                lista_num = ''
             if len(lista_num) == 11:
                 lista_num.insert(0, 0)
                 lista_num.insert(1, 0)
-            elif len(lista_num) == 13:
-                
+            if len(lista_num) == 12:
+                lista_num = ''
+            if len(lista_num) == 13:
+                                              
                 sum_d1 = []
                 a = 1
                 lista_num.pop()
                 lista_num.pop()
                 lista_num.insert(3, 0)
             
-            
+                        
             # linha[7] = ''.join(insc_estadual)
             # nova_linha = '|'.join(linha)
         
@@ -112,8 +117,8 @@ with open("C:/Users/acer003/Documents/Testes de Python/PROJETOS/PROJETO - Valida
             lista.append(i)
     sped_str = ''.join(lista)
     
-    # # SALVAR ARQUIVO NO LOCAL SELECIONADO
-    # files = [('Escrituração Fiscal', '*.txt')]
-    # sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
-    # sped_novo.write(sped_str)
+    # SALVAR ARQUIVO NO LOCAL SELECIONADO
+    files = [('Escrituração Fiscal', '*.txt')]
+    sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
+    sped_novo.write(sped_str)
 
