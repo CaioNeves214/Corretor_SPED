@@ -28,10 +28,23 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
             if len(lista_num) == 13:
                                               
                 sum_d1 = []
+                soma = 0
+                cont1 = 1
                 a = 1
                 lista_num.pop()
                 lista_num.pop()
                 lista_num.insert(3, 0)
+                for a in lista_num:
+                    num = int(a)
+                    if cont1 == 1:
+                        sum_d1.append(num*cont1)
+                        cont1 = 2
+                    elif cont1 == 2:
+                        sum_d1.append(num*cont1)
+                        cont1 = 1
+                for num in sum_d1:
+                    soma += num
+                print(soma)
             
                         
             # linha[7] = ''.join(insc_estadual)
@@ -118,7 +131,7 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
     sped_str = ''.join(lista)
     
     # SALVAR ARQUIVO NO LOCAL SELECIONADO
-    files = [('Escrituração Fiscal', '*.txt')]
-    sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
-    sped_novo.write(sped_str)
+    # files = [('Escrituração Fiscal', '*.txt')]
+    # sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
+    # sped_novo.write(sped_str)
 
