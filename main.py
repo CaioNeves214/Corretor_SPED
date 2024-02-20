@@ -1,10 +1,13 @@
 # BIBLIOTECAS
 import os
 from tkinter import filedialog as fd
+import math
+import requests
 
 # DEFINIR VARIAVEIS E ABRIR ARQUIVO FISCAL SELECIONADO
 # caminho = fd.askopenfilename()
 with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMARELA JANEIRO.txt', 'r') as sped:
+    consulta_cnpj_url = 'https://api-publica.speedio.com.br/buscarcnpj?cnpj='
     os.system('cls')
     nova_linha = ''
     lista = []
@@ -14,41 +17,26 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
         # EMITENTES
         if i.startswith('|0150|'):
             linha = i.split('|')
-            insc_estadual = linha[7].split()           
+            cnpj = linha[5].split()
+            nome = linha[3]
+            insc_estadual = linha[7].split()        
+            cod_estadual = linha[8].split()   
             for cont in insc_estadual:
-                lista_num = list(cont)
-                
-            if len(lista_num) <= 10:
-                lista_num = ''
-            if len(lista_num) == 11:
-                lista_num.insert(0, 0)
-                lista_num.insert(1, 0)
-            if len(lista_num) == 12:
-                lista_num = ''
-            if len(lista_num) == 13:
-                                              
-                sum_d1 = []
-                soma = 0
-                cont1 = 1
-                a = 1
-                lista_num.pop()
-                lista_num.pop()
-                lista_num.insert(3, 0)
-                for a in lista_num:
-                    num = int(a)
-                    if cont1 == 1:
-                        sum_d1.append(num*cont1)
-                        cont1 = 2
-                    elif cont1 == 2:
-                        sum_d1.append(num*cont1)
-                        cont1 = 1
-                for num in sum_d1:
-                    soma += num
-                print(soma)
+                lista_num = list(cont)      
+            for cont1 in cod_estadual:
+                lista_num1 = list(cont1)
             
-                        
-            # linha[7] = ''.join(insc_estadual)
-            # nova_linha = '|'.join(linha)
+            if nome == '':
+                resposta_api = requests.get(consulta_cnpj_url+str(cnpj))
+                dados = resposta_api.json()
+                            
+            if cont1[0:1] != '31':
+                lista_num = ''           
+            if len(lista_num) != 13:
+                lista_num = ''
+                                                     
+            linha[7] = ''.join(lista_num)
+            nova_linha = '|'.join(linha)
         
         # PRODUTOS
         if i.startswith('|0200|'):
