@@ -28,7 +28,14 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
             
             if nome == '':
                 resposta_api = requests.get(consulta_cnpj_url+str(cnpj))
-                dados = resposta_api.json()
+                if resposta_api.status_code == 200:
+                    dados = resposta_api.json()
+                    # dados = "{'NOME FANTASIA': '', 'RAZAO SOCIAL': 'JOAO ALVES -DOCES SANTA ELIZA', 'CNPJ': '19127802000195', 'STATUS': 'ATIVA', 'SETOR': 'Comercio Por Atacado', 'CNAE PRINCIPAL DESCRICAO': 'Fabricação de laticínios', 'CNAE PRINCIPAL CODIGO': '1052000', 'CEP': '37273000', 'DATA ABERTURA': '05/12/1972', 'DDD': '35', 'TELEFONE': '97430000', 'EMAIL': 'joaoalvesjr03@gmail.com', 'TIPO LOGRADOURO': 'RUA', 'LOGRADOURO': 'ARLINDO ALVES', 'NUMERO': 'SN', 'COMPLEMENTO': '', 'BAIRRO': 'CENTRO', 'MUNICIPIO': 'Aguanil', 'UF': 'MG'}"
+                    novo_nome = dados['RAZAO SOCIAL']
+                    print(novo_nome)
+                    
+                    
+                
                             
             if cont1[0:1] != '31':
                 lista_num = ''           
