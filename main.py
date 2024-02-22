@@ -5,8 +5,8 @@ import math
 import requests
 
 # DEFINIR VARIAVEIS E ABRIR ARQUIVO FISCAL SELECIONADO
-# caminho = fd.askopenfilename()
-with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMARELA JANEIRO.txt', 'r') as sped:
+caminho = fd.askopenfilename()
+with open(caminho, 'r') as sped:
     consulta_cnpj_url = 'https://api-publica.speedio.com.br/buscarcnpj?cnpj='
     os.system('cls')
     nova_linha = ''
@@ -30,7 +30,6 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
                 resposta_api = requests.get(consulta_cnpj_url+str(cnpj))
                 if resposta_api.status_code == 200:
                     dados = resposta_api.json()
-                    # dados = "{'NOME FANTASIA': '', 'RAZAO SOCIAL': 'JOAO ALVES -DOCES SANTA ELIZA', 'CNPJ': '19127802000195', 'STATUS': 'ATIVA', 'SETOR': 'Comercio Por Atacado', 'CNAE PRINCIPAL DESCRICAO': 'Fabricação de laticínios', 'CNAE PRINCIPAL CODIGO': '1052000', 'CEP': '37273000', 'DATA ABERTURA': '05/12/1972', 'DDD': '35', 'TELEFONE': '97430000', 'EMAIL': 'joaoalvesjr03@gmail.com', 'TIPO LOGRADOURO': 'RUA', 'LOGRADOURO': 'ARLINDO ALVES', 'NUMERO': 'SN', 'COMPLEMENTO': '', 'BAIRRO': 'CENTRO', 'MUNICIPIO': 'Aguanil', 'UF': 'MG'}"
                     format_nome = str(dados['RAZAO SOCIAL'])
                     novo_nome = format_nome.strip('-')                                
                             
@@ -40,14 +39,15 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
                 lista_num = ''
                                                      
             linha[7] = ''.join(lista_num)
-            if nome == '':
-                linha[3] = ''.join(novo_nome)
+            # if nome == '':
+            #     linha[3] = ''.join(novo_nome)
             nova_linha = '|'.join(linha)
         
         # PRODUTOS
         if i.startswith('|0200|'):
             linha = i.split('|')
             produto = linha[3].split()
+            cest = linha[13]
             try:
                 c1 = produto.count('-')
                 if c1 >= 1:
@@ -74,6 +74,9 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
                         produto.pop(position)                
             except:
                 pass
+            if cest == '0000000':
+                cest = ''
+            linha[13] = ''.join(cest)
             linha[3] = ' '.join(produto)
             nova_linha = '|'.join(linha)
         
