@@ -39,8 +39,8 @@ with open(caminho, 'r') as sped:
                 lista_num = ''
                                                      
             linha[7] = ''.join(lista_num)
-            # if nome == '':
-            #     linha[3] = ''.join(novo_nome)
+            if nome == '':
+                linha[3] = ''.join(novo_nome)
             nova_linha = '|'.join(linha)
         
         # PRODUTOS
