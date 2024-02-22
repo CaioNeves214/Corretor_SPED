@@ -31,11 +31,8 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
                 if resposta_api.status_code == 200:
                     dados = resposta_api.json()
                     # dados = "{'NOME FANTASIA': '', 'RAZAO SOCIAL': 'JOAO ALVES -DOCES SANTA ELIZA', 'CNPJ': '19127802000195', 'STATUS': 'ATIVA', 'SETOR': 'Comercio Por Atacado', 'CNAE PRINCIPAL DESCRICAO': 'Fabricação de laticínios', 'CNAE PRINCIPAL CODIGO': '1052000', 'CEP': '37273000', 'DATA ABERTURA': '05/12/1972', 'DDD': '35', 'TELEFONE': '97430000', 'EMAIL': 'joaoalvesjr03@gmail.com', 'TIPO LOGRADOURO': 'RUA', 'LOGRADOURO': 'ARLINDO ALVES', 'NUMERO': 'SN', 'COMPLEMENTO': '', 'BAIRRO': 'CENTRO', 'MUNICIPIO': 'Aguanil', 'UF': 'MG'}"
-                    novo_nome = dados['RAZAO SOCIAL']
-                    print(novo_nome)
-                    
-                    
-                
+                    format_nome = str(dados['RAZAO SOCIAL'])
+                    novo_nome = format_nome.strip('-')                                
                             
             if cont1[0:1] != '31':
                 lista_num = ''           
@@ -43,6 +40,8 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
                 lista_num = ''
                                                      
             linha[7] = ''.join(lista_num)
+            if nome == '':
+                linha[3] = ''.join(novo_nome)
             nova_linha = '|'.join(linha)
         
         # PRODUTOS
@@ -126,7 +125,7 @@ with open('C:/Users/acer003/Documents/GitHub/New-Project/SPED FISCAL BARRACA AMA
     sped_str = ''.join(lista)
     
     # SALVAR ARQUIVO NO LOCAL SELECIONADO
-    # files = [('Escrituração Fiscal', '*.txt')]
-    # sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
-    # sped_novo.write(sped_str)
+    files = [('Escrituração Fiscal', '*.txt')]
+    sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
+    sped_novo.write(sped_str)
 
