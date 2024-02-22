@@ -1,12 +1,17 @@
 # BIBLIOTECAS
 import os
 from tkinter import filedialog as fd
+from tkinter import messagebox as msg
 import math
 import requests
 
 # DEFINIR VARIAVEIS E ABRIR ARQUIVO FISCAL SELECIONADO
 caminho = fd.askopenfilename()
 with open(caminho, 'r') as sped:
+    if sped.readable() == False:
+        msg.showerror('Erro', 'Arquivo Invalido !')
+    if sped.name[len(sped.name)-4:] != '.txt':
+        msg.showerror('Erro', 'Arquivo Invalido !')
     consulta_cnpj_url = 'https://api-publica.speedio.com.br/buscarcnpj?cnpj='
     os.system('cls')
     nova_linha = ''
@@ -131,4 +136,5 @@ with open(caminho, 'r') as sped:
     files = [('Escrituração Fiscal', '*.txt')]
     sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
     sped_novo.write(sped_str)
+    sped.close()
 
