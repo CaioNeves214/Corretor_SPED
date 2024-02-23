@@ -26,124 +26,124 @@ except:
         nova_linha = ''
         lista = []
         ler = sped.readlines()
-    for i in ler:
+for i in ler:
 
-        # EMITENTES
-        if i.startswith('|0150|'):
-            linha = i.split('|')
-            cnpj = linha[5].split()
-            nome = linha[3]
-            insc_estadual = linha[7].split()        
-            cod_estadual = linha[8].split()   
-            for cont in insc_estadual:
-                lista_num = list(cont)      
-            for cont1 in cod_estadual:
-                lista_num1 = list(cont1)
+    # EMITENTES
+    if i.startswith('|0150|'):
+        linha = i.split('|')
+        cnpj = linha[5].split()
+        nome = linha[3]
+        insc_estadual = linha[7].split()        
+        cod_estadual = linha[8].split()   
+        for cont in insc_estadual:
+            lista_num = list(cont)      
+        for cont1 in cod_estadual:
+            lista_num1 = list(cont1)
             
-            if nome == '':
-                resposta_api = requests.get(consulta_cnpj_url+str(cnpj))
-                if resposta_api.status_code == 200:
-                    dados = resposta_api.json()
-                    format_nome = str(dados['RAZAO SOCIAL'])
-                    novo_nome = format_nome.strip('-')                                
+        if nome == '':
+            resposta_api = requests.get(consulta_cnpj_url+str(cnpj))
+            if resposta_api.status_code == 200:
+                dados = resposta_api.json()
+                format_nome = str(dados['RAZAO SOCIAL'])
+                novo_nome = format_nome.strip('-')                                
                             
-            if cont1[0:1] != '31':
-                lista_num = ''           
-            if len(lista_num) != 13:
-                lista_num = ''
+        if cont1[0:1] != '31':
+            lista_num = ''           
+        if len(lista_num) != 13:
+            lista_num = ''
                                                      
-            linha[7] = ''.join(lista_num)
-            if nome == '':
-                linha[3] = ''.join(novo_nome)
-            nova_linha = '|'.join(linha)
+        linha[7] = ''.join(lista_num)
+        if nome == '':
+            linha[3] = ''.join(novo_nome)
+        nova_linha = '|'.join(linha)
         
-        # PRODUTOS
-        if i.startswith('|0200|'):
-            linha = i.split('|')
-            produto = linha[3].split()
-            cest = linha[13]
-            try:
-                c1 = produto.count('-')
-                if c1 >= 1:
-                    for a in range(0,c1):
-                        position = produto.index('-')
-                        produto.pop(position)
+    # PRODUTOS
+    if i.startswith('|0200|'):
+        linha = i.split('|')
+        produto = linha[3].split()
+        cest = linha[13]
+        try:
+            c1 = produto.count('-')
+            if c1 >= 1:
+                for a in range(0,c1):
+                    position = produto.index('-')
+                    produto.pop(position)
                         
-                c2 = produto.count('.')
-                if c2 >= 1:
-                    for a in range(0,c2):
-                        position = produto.index('.')
-                        produto.pop(position)
+            c2 = produto.count('.')
+            if c2 >= 1:
+                for a in range(0,c2):
+                    position = produto.index('.')
+                    produto.pop(position)
                         
-                c3 = produto.count('*')
-                if c3 >= 1:
-                    for a in range(0,c3):
-                        position = produto.index('*')
-                        produto.pop(position)
+            c3 = produto.count('*')
+            if c3 >= 1:
+                for a in range(0,c3):
+                    position = produto.index('*')
+                    produto.pop(position)
                         
-                c4 = produto.count('%')
-                if c4 >= 1:
-                    for a in range(0,c4):
-                        position = produto.index('%')
-                        produto.pop(position)                
-            except:
-                pass
-            if cest == '0000000':
-                cest = ''
-            linha[13] = ''.join(cest)
-            linha[3] = ' '.join(produto)
-            nova_linha = '|'.join(linha)
+            c4 = produto.count('%')
+            if c4 >= 1:
+                for a in range(0,c4):
+                    position = produto.index('%')
+                    produto.pop(position)                
+        except:
+            pass
+        if cest == '0000000':
+            cest = ''
+        linha[13] = ''.join(cest)
+        linha[3] = ' '.join(produto)
+        nova_linha = '|'.join(linha)
         
-        # NOTAS (ENTRADA)    
-        if i.startswith('|C100|0'):
-            linha = i.split('|')
-            linha[6] = '08'
-            nova_linha = "|".join(linha)
+    # NOTAS (ENTRADA)    
+    if i.startswith('|C100|0'):
+        linha = i.split('|')
+        linha[6] = '08'
+        nova_linha = "|".join(linha)
             
-        # PRODUTOS DE NOTAS
-        if i.startswith('|C170|'):
-            linha = i.split('|')
-            produto = linha[4].split()
-            try:
-                c1 = produto.count('-')
-                if c1 >= 1:
-                    for a in range(0,c1):
-                        position = produto.index('-')
-                        produto.pop(position)
+    # PRODUTOS DE NOTAS
+    if i.startswith('|C170|'):
+        linha = i.split('|')
+        produto = linha[4].split()
+        try:
+            c1 = produto.count('-')
+            if c1 >= 1:
+                for a in range(0,c1):
+                    position = produto.index('-')
+                    produto.pop(position)
                         
-                c2 = produto.count('.')
-                if c2 >= 1:
-                    for a in range(0,c2):
-                        position = produto.index('.')
-                        produto.pop(position)
+            c2 = produto.count('.')
+            if c2 >= 1:
+                for a in range(0,c2):
+                    position = produto.index('.')
+                    produto.pop(position)
                         
-                c3 = produto.count('*')
-                if c3 >= 1:
-                    for a in range(0,c3):
-                        position = produto.index('*')
-                        produto.pop(position)
+            c3 = produto.count('*')
+            if c3 >= 1:
+                for a in range(0,c3):
+                    position = produto.index('*')
+                    produto.pop(position)
                         
-                c4 = produto.count('%')
-                if c4 >= 1:
-                    for a in range(0,c4):
-                        position = produto.index('%')
-                        produto.pop(position)                
-            except:
-                pass
-            linha[4] = ' '.join(produto)
-            nova_linha = '|'.join(linha)
+            c4 = produto.count('%')
+            if c4 >= 1:
+                for a in range(0,c4):
+                    position = produto.index('%')
+                    produto.pop(position)                
+        except:
+            pass
+        linha[4] = ' '.join(produto)
+        nova_linha = '|'.join(linha)
 
-        # ADICIONAR LINHA MODIFICADA AO ARQUIVO
-        if nova_linha != '':    
-            lista.append(nova_linha)
-            nova_linha = ''
-        else:
-            lista.append(i)
-    sped_str = ''.join(lista)
+    # ADICIONAR LINHA MODIFICADA AO ARQUIVO
+    if nova_linha != '':    
+        lista.append(nova_linha)
+        nova_linha = ''
+    else:
+        lista.append(i)
+sped_str = ''.join(lista)
     
     # SALVAR ARQUIVO NO LOCAL SELECIONADO
-    files = [('Escrituração Fiscal', '*.txt')]
-    sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
-    sped_novo.write(sped_str)
-    sped.close()
+files = [('Escrituração Fiscal', '*.txt')]
+sped_novo = fd.asksaveasfile(defaultextension='.txt', mode="w", filetypes=files)
+sped_novo.write(sped_str)
+sped.close()
 
