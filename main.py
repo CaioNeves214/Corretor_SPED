@@ -7,7 +7,7 @@ import requests
 # DEFINIR VARIAVEIS E ABRIR ARQUIVO FISCAL SELECIONADO
 caminho = fd.askopenfilename()
 # try:
-with open(caminho, 'r', encoding='utf-8') as sped:
+with open(caminho, 'r', encoding='ISO-8859-1', errors='ignore') as sped:
     if sped.readable() == False:
         msg.showerror('Erro', 'Arquivo Invalido !')
     if sped.name[len(sped.name)-4:] != '.txt':
@@ -16,16 +16,6 @@ with open(caminho, 'r', encoding='utf-8') as sped:
     nova_linha = ''
     lista = []
     ler = sped.readlines()
-# except:
-#     with open(caminho, 'r', encoding='utf-8') as sped:
-#         if sped.readable() == False:
-#             msg.showerror('Erro', 'Arquivo Invalido !')
-#         if sped.name[len(sped.name)-4:] != '.txt':
-#             msg.showerror('Erro', 'Arquivo Invalido !')
-#         consulta_cnpj_url = 'https://api-publica.speedio.com.br/buscarcnpj?cnpj='
-#         nova_linha = ''
-#         lista = []
-#         ler = sped.readlines()
 for i in ler:
 
     # EMITENTES
