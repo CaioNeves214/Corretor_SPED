@@ -11,7 +11,7 @@ with open(caminho, 'r', encoding='ISO-8859-1', errors='ignore') as sped:
     if sped.readable() == False:
         msg.showerror('Erro', 'Arquivo Invalido !')
     if sped.name[len(sped.name)-4:] != '.txt':
-            sg.showerror('Erro', 'Arquivo Invalido !')
+        msg.showerror('Erro', 'Arquivo Invalido !')
     consulta_cnpj_url = 'https://api-publica.speedio.com.br/buscarcnpj?cnpj='
     nova_linha = ''
     lista = []
